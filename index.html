@@ -26,6 +26,26 @@
                 http://angular-ui.github.io/bootstrap/#/rating
                 their script file is included below
                 -->
+                <form>
+                    <div class="comment-form-group">
+                        <label>Title</label>
+                        <input type="text" id="comment-title" placeholder="Title"/>
+                        <label>Name</label>
+                        <input type="text" id="comment-title" placeholder="name"/>
+                        <label>Rating</label>
+                        <input type="radio" name="rating" value="1" /> 1
+                        <input type="radio" name="rating" value="2" /> 2
+                        <input type="radio" name="rating" value="3" /> 3
+                        <input type="radio" name="rating" value="4" /> 4
+                        <input type="radio" name="rating" value="5" /> 5
+                        <input type="text" id="comment-title" placeholder="type your comment here..."/>
+                    </div>
+
+                    <div class="comment-form-group">
+                        <button type="submit" class="btn btn-primary" ng-disabled="inserting">Add Comment</button>
+                        <img src="img/ajax-spinner.gif" alt="loading animation" ng-if="inserting"/>
+                    </div>
+                </form>
             </section>
 
             <section>

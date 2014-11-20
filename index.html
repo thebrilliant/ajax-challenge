@@ -29,16 +29,16 @@
                 <form>
                     <div class="comment-form-group">
                         <label>Title</label>
-                        <input type="text" id="comment-title" placeholder="Title"/>
+                        <input type="text" id="comment-title" placeholder="Title" ng-model="newComment.title"/>
                         <label>Name</label>
-                        <input type="text" id="comment-title" placeholder="name"/>
+                        <input type="text" id="comment-title" placeholder="name" ng-model="newComment.name"/>
                         <label>Rating</label>
-                        <input type="radio" name="rating" value="1" /> 1
-                        <input type="radio" name="rating" value="2" /> 2
-                        <input type="radio" name="rating" value="3" /> 3
-                        <input type="radio" name="rating" value="4" /> 4
-                        <input type="radio" name="rating" value="5" /> 5
-                        <input type="text" id="comment-title" placeholder="type your comment here..."/>
+                        <input type="radio" name="rating" value="1" ng-model="newComment.rating" /> 1
+                        <input type="radio" name="rating" value="2" ng-model="newComment.rating" /> 2
+                        <input type="radio" name="rating" value="3" ng-model="newComment.rating" /> 3
+                        <input type="radio" name="rating" value="4" ng-model="newComment.rating" /> 4
+                        <input type="radio" name="rating" value="5" ng-model="newComment.rating" /> 5
+                        <input type="text" id="comment-title" placeholder="type your comment here..." ng-model="newComment.body"/>
                     </div>
 
                     <div class="comment-form-group">
@@ -50,11 +50,41 @@
 
             <section>
                 <h2>Comments</h2>
+
+                <p>
+                    <button class="btn btn-primary" ng-click="refreshComments()">Refresh</button>
+                    <img src="img/ajax-spinner.gif" alt="loading animation" ng-if="loading || updating"/>
+                </p>
                 <!-- 
                 display existing comments here
                 each comment should also have UI allowing the user to vote up/down the comment
                 as well as delete it
                  -->
+
+                 <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Name</th>
+                            <th>Rating</th>
+                            <th>Description</th>
+                            <th>Votes</th>
+                            <th>Delete Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="comment in comments">
+                            <td ng-class="{done: comment.done}">{{comment.title}}</td>
+                            <td ng-class="{done: comment.done}">{{comment.name}}</td>
+                            <td ng-class="{done: comment.done}">{{comment.rating}}</td>
+                            <td ng-class="{done: comment.done}">{{comment.body}}</td>
+                            <td ng-class="{done: comment.done}">{{comment.votes}}</td>
+                            <td>
+                                <input type="checkbox" ng-model="comment.done" ng-change="updateComment(comment)"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
 
         </main>

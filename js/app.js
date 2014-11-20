@@ -48,7 +48,7 @@ angular.module('CommentApp', [])
                     comment.objectId = responseData.objectId;
 
                     //add that comment to our comment list
-                    $scope.tasks.push(comment);
+                    $scope.comments.push(comment);
 
                     //reset the newComment clear the form
                     $scope.newComment = {done: false};

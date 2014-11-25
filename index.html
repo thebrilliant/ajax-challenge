@@ -9,14 +9,14 @@
     </head>
     <body>
 
-        <main class="container">
+        <main class="container" ng-app="CommentApp">
             <section>
                 <img src="img/super-bass-o-matic-76.jpg" alt="product picture" class="product-picture">
                 <h1>The Super Bass-o-Matic '76</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia cumque deserunt ullam repudiandae nisi corporis! Ipsum, ducimus commodi, itaque porro distinctio consequuntur! Autem doloremque numquam nemo ex nulla tempora quis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde nihil doloribus excepturi quisquam error possimus veritatis facere, commodi cumque ab atque dolore ducimus obcaecati ipsa, impedit! Consequuntur, eligendi iure cumque!</p>
             </section>
 
-            <section>
+            <section ng-controller="CommentController">
                 <h2>Add a Comment</h2>
                 <!--  
                 put a form here for entering a new comment
@@ -26,19 +26,19 @@
                 http://angular-ui.github.io/bootstrap/#/rating
                 their script file is included below
                 -->
-                <form>
+                <form ng-submit="addComment()">
                     <div class="comment-form-group">
                         <label>Title</label>
-                        <input type="text" id="comment-title" placeholder="Title" ng-model="newComment.title"/>
+                        <input type="text" id="comment-title" placeholder="Title" ng-model="comment.title"/>
                         <label>Name</label>
-                        <input type="text" id="comment-title" placeholder="name" ng-model="newComment.name"/>
+                        <input type="text" id="comment-title" placeholder="name" ng-model="comment.name"/>
                         <label>Rating</label>
-                        <input type="radio" name="rating" value="1" ng-model="newComment.rating" /> 1
-                        <input type="radio" name="rating" value="2" ng-model="newComment.rating" /> 2
-                        <input type="radio" name="rating" value="3" ng-model="newComment.rating" /> 3
-                        <input type="radio" name="rating" value="4" ng-model="newComment.rating" /> 4
-                        <input type="radio" name="rating" value="5" ng-model="newComment.rating" /> 5
-                        <input type="text" id="comment-title" placeholder="type your comment here..." ng-model="newComment.body"/>
+                        <input type="radio" name="rating" value="1" ng-model="comment.rating" /> 1
+                        <input type="radio" name="rating" value="2" ng-model="comment.rating" /> 2
+                        <input type="radio" name="rating" value="3" ng-model="comment.rating" /> 3
+                        <input type="radio" name="rating" value="4" ng-model="comment.rating" /> 4
+                        <input type="radio" name="rating" value="5" ng-model="comment.rating" /> 5
+                        <input type="text" id="comment-title" placeholder="type your comment here..." ng-model="comment.body"/>
                     </div>
 
                     <div class="comment-form-group">
@@ -48,7 +48,7 @@
                 </form>
             </section>
 
-            <section>
+            <section ng-controller="CommentController">
                 <h2>Comments</h2>
 
                 <p>
@@ -74,13 +74,13 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="comment in comments">
-                            <td ng-class="{done: comment.done}">{{comment.title}}</td>
-                            <td ng-class="{done: comment.done}">{{comment.name}}</td>
-                            <td ng-class="{done: comment.done}">{{comment.rating}}</td>
-                            <td ng-class="{done: comment.done}">{{comment.body}}</td>
-                            <td ng-class="{done: comment.done}">{{comment.votes}}</td>
+                            <td>{{comment.title}}</td>
+                            <td>{{comment.name}}</td>
+                            <td>{{comment.rating}}</td>
+                            <td>{{comment.body}}</td>
+                            <td>{{comment.votes}}</td>
                             <td>
-                                <input type="checkbox" ng-model="comment.done" ng-change="updateComment(comment)"/>
+                                <button type="submit" class="btn btn-primary" ng-disabled="inserting" ng-change="removeComment(comment)"/>Delete</button>
                             </td>
                         </tr>
                     </tbody>

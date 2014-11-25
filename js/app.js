@@ -40,9 +40,6 @@ angular.module('CommentApp', [])
         $scope.refreshComments();
         console.log("refreshed page");
 
-        //initialize a new comment object on the scope for the new comment form
-        //$scope.comment = {done: false};
-
         //function to add a new comment to the list
         $scope.addComment = function(comment) {
             console.log("line 43 reached");
@@ -59,10 +56,6 @@ angular.module('CommentApp', [])
                     //add that comment to our comment list
                     $scope.comments.push($scope.comment);
                     console.log("pushed on the comment");
-
-                    //reset the newComment clear the form
-                    //$scope.comment = {done: false};
-                    console.log("new comment set to active");
                 })
                 .error(function(err) {
                     console.log(err);
@@ -70,18 +63,25 @@ angular.module('CommentApp', [])
         };
 
         //function to update an exisiting taks
-        $scope.updateComment = function(comment) {
-            console.log("line 67 reached");
+        $scope.updateComment = function(comment, vote) {
             $scope.updating = true;
             console.log("comment:");
             console.log(comment);
-            $http.put('https://api.parse.com/1/classes/comments/'+ $scope.comment.objectId, comment)
+            console.log("initial score: " + $scope.comment.score);
+            comment = {
+                if (vote) {
+                    comment.score: {_op: 'Increment', amount: 1};
+                } else {
+                    comment.score: {_op: 'Increment', amount: -1};
+                }
+            };
+            $http.put('https://api.parse.com/1/classes/comments/'+ $scope.comment.objectId, $scope.comment)
                 .success(function(responseData) {
-                    //don't need to do anything because the local object is already up-to-date
+                    
+                    console.log("new score: " + $scope.comment.score);
                 })
                 .error(function(err) {
                     console.log(err);
-                    //notify user in some way
                 })
                 .finally(function() {
                     $scope.updating = false;

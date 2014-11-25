@@ -76,7 +76,7 @@
                             <td>{{comment.name}}</td>
                             <td>{{comment.rating}}</td>
                             <td>{{comment.body}}</td>
-                            <td>{{comment.score}}</td>
+                            <td><button class="btn btn-primary" ng-click="updateComment(comment, true)">Like</button> <button class="btn btn-primary" ng-click="updateComment(comment, false)">Dislike</button> {{comment.score}} Likes</td>
                             <td>
                                 <button class="btn btn-warning" ng-disabled="inserting" ng-click="removeComment(comment)"/>Delete</button>
                             </td>

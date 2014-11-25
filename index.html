@@ -46,9 +46,7 @@
                         <img src="img/ajax-spinner.gif" alt="loading animation" ng-if="inserting"/>
                     </div>
                 </form>
-            </section>
 
-            <section ng-controller="CommentController">
                 <h2>Comments</h2>
 
                 <p>
@@ -78,9 +76,9 @@
                             <td>{{comment.name}}</td>
                             <td>{{comment.rating}}</td>
                             <td>{{comment.body}}</td>
-                            <td>{{comment.votes}}</td>
+                            <td>{{comment.score}}</td>
                             <td>
-                                <button type="submit" class="btn btn-primary" ng-disabled="inserting" ng-change="removeComment(comment)"/>Delete</button>
+                                <button class="btn btn-warning" ng-disabled="inserting" ng-click="removeComment(comment)"/>Delete</button>
                             </td>
                         </tr>
                     </tbody>

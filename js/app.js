@@ -47,6 +47,7 @@ angular.module('CommentApp', [])
         $scope.addComment = function(comment) {
             console.log("line 43 reached");
             console.log($scope.comment);
+            $scope.comment.score = 0;
             //post will add (insert) a new item to the class
             $http.post('https://api.parse.com/1/classes/comments', $scope.comment)
                 .success(function(responseData) {
@@ -74,7 +75,7 @@ angular.module('CommentApp', [])
             $scope.updating = true;
             console.log("comment:");
             console.log(comment);
-            $http.put('https://api.parse.com/1/classes/comments'+ $scope.comment.objectId, comment)
+            $http.put('https://api.parse.com/1/classes/comments/'+ $scope.comment.objectId, comment)
                 .success(function(responseData) {
                     //don't need to do anything because the local object is already up-to-date
                 })
@@ -91,9 +92,10 @@ angular.module('CommentApp', [])
             console.log("comment");
             console.log(comment);
 
-            $http.delete('https://api.parse.com/1/classes/comments'+ $scope.comment.objectId, comment)
+            $http.delete('https://api.parse.com/1/classes/comments/'+ comment.objectId)
                 .success(function() {
                     console.log("comment deleted");
+                    $scope.refreshComments();
                 })
                 .error(function(err) {
                     console.log(err);

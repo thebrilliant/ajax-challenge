@@ -36,10 +36,12 @@ angular.module('CommentApp', [])
 
 
         //call the refreshComments() to get the initial set of comments on the page load
+        console.log("about to refreshComments");
         $scope.refreshComments();
+        console.log("refreshed page");
 
         //initialize a new comment object on the scope for the new comment form
-        $scope.comment = {done: false};
+        //$scope.comment = {done: false};
 
         //function to add a new comment to the list
         $scope.addComment = function(comment) {
@@ -58,7 +60,7 @@ angular.module('CommentApp', [])
                     console.log("pushed on the comment");
 
                     //reset the newComment clear the form
-                    $scope.comment = {done: false};
+                    //$scope.comment = {done: false};
                     console.log("new comment set to active");
                 })
                 .error(function(err) {

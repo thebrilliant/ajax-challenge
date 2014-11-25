@@ -68,16 +68,15 @@ angular.module('CommentApp', [])
             console.log("comment:");
             console.log(comment);
             console.log("initial score: " + $scope.comment.score);
-            comment = {
-                if (vote) {
+                
+            
+            $http.put('https://api.parse.com/1/classes/comments/'+ $scope.comment.objectId, $scope.comment)
+                .success(function(responseData) {
+                    if (vote) {
                     comment.score: {_op: 'Increment', amount: 1};
                 } else {
                     comment.score: {_op: 'Increment', amount: -1};
                 }
-            };
-            $http.put('https://api.parse.com/1/classes/comments/'+ $scope.comment.objectId, $scope.comment)
-                .success(function(responseData) {
-                    
                     console.log("new score: " + $scope.comment.score);
                 })
                 .error(function(err) {

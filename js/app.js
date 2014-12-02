@@ -13,7 +13,6 @@ angular.module('CommentApp', [])
     .controller('CommentController', function($scope, $http) {
     	//get or refresh all task objects saved by my application on Parse.com
         $scope.refreshComments = function() {
-            console.log("line 16 reached");
             $scope.loading = true;
             $http.get('https://api.parse.com/1/classes/comments')
                 .success(function(responseData) {
@@ -21,7 +20,6 @@ angular.module('CommentApp', [])
                     //return an object with one property called results
                     //which will can an array with all the data objects
                     $scope.comments = responseData.results;
-                    console.log("line 24 worked");
                     console.log($scope.comments);
                 })
                 .error(function(err) {
@@ -42,7 +40,6 @@ angular.module('CommentApp', [])
 
         //function to add a new comment to the list
         $scope.addComment = function(comment) {
-            console.log("line 43 reached");
             console.log($scope.comment);
             $scope.comment.score = 0;
             //post will add (insert) a new item to the class
@@ -65,19 +62,24 @@ angular.module('CommentApp', [])
         //function to update an exisiting taks
         $scope.updateComment = function(comment, vote) {
             $scope.updating = true;
+            console.log(vote);
             console.log("comment:");
             console.log(comment);
-            console.log("initial score: " + $scope.comment.score);
-                
+            console.log("initial score: " + comment.score);
             
-            $http.put('https://api.parse.com/1/classes/comments/'+ $scope.comment.objectId, $scope.comment)
+            //increments or decrements depending on whether like or dislike was clicked
+            if (vote) {
+                console.log("got into if statement");
+                comment.score++;
+
+            } else {
+                comment.score--;
+            }
+            
+            //updates comment on server
+            $http.put('https://api.parse.com/1/classes/comments/'+ comment.objectId, comment)
                 .success(function(responseData) {
-                    if (vote) {
-                    comment.score: {_op: 'Increment', amount: 1};
-                } else {
-                    comment.score: {_op: 'Increment', amount: -1};
-                }
-                    console.log("new score: " + $scope.comment.score);
+                    console.log("new score: " + comment.score);
                 })
                 .error(function(err) {
                     console.log(err);
@@ -87,6 +89,7 @@ angular.module('CommentApp', [])
                 });
         };
 
+        //deletes comment on server and page
         $scope.removeComment = function(comment) {
             console.log("comment");
             console.log(comment);
